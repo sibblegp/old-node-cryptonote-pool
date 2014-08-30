@@ -17,13 +17,13 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "48Y4SoUJM5L3YXBEfNQ8bFNsvTNsqcH5Rgq8RF7BwpgvTBj2xr7CmWVanaw7L4U9MnZ4AG7U6Pn1pBhfQhFyFZ1rL1efL8z",
+        "poolAddress": "48hdUZjf5W16DTvsY8wM8Zb93r5W9Vs5s4kPhGisBhtj87NLREM38Gs5kkJk6NAd1B6weM7JMnpeBdTrUgUeb7kCE1mVAKk",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "ports": [
-            {
-                "port": 3333,
-                "difficulty": 100,
+           {
+                "port": 4444,
+                "difficulty": 1000,
                 "desc": "Low end hardware"
             },
             {
@@ -33,14 +33,24 @@
             },
             {
                 "port": 7777,
-                "difficulty": 10000,
+                "difficulty": 15000,
                 "desc": "High end hardware"
             },
             {
-                "port": 8888,
-                "difficulty": 10000,
-                "desc": "Hidden port",
-                "hidden": true
+                "port": 80,
+                "difficulty": 15000,
+                "desc": "High end hardware"
+            },
+            {
+                "port": 3333,
+                "difficulty": 50000,
+                "desc": "V.High end hardware"
+
+            },
+            {
+                "port": 443,
+                "difficulty": 15000,
+                "desc": "High end hardware"
             }
         ],
         "varDiff": {
@@ -98,6 +108,11 @@
     "daemon": {
         "host": "127.0.0.1",
         "port": 18081
+    },
+    
+    "daemonfall": {
+        "host": "127.0.0.1",
+        "port": 28081
     },
 
     "wallet": {
