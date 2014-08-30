@@ -104,12 +104,24 @@
         <div><i class="fa fa-history"></i> Block Found Every: <span id="blockSolvedTime"></span> (est.)</div>
     </div>
 
-    <div class="col-md-4 stats">
-        <h3 id="marketHeader">Market</h3>
-        <div class="marketFooter">Updated: <span id="marketLastUpdated"></span></div>
-        <div class="marketFooter">Powered by <a href="https://www.cryptonator.com/">Cryptonator</a></div>
-    </div>
-</div>
+             <div class="col-md-4 stats">
+		<h3>Market</h3>
+		<div id="hitbtc-ticker" class="hit-medium" data-hue="165"></div>
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement("script");
+        po.type = "text/javascript";
+        po.async = true;
+        po.src = "https://hitbtc.com/get_widget?pair=xmrbtc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
+                <h4 id="marketHeader">1 XMR:</h4>
+                <!--<div class="marketFooter">Updated: <span id="marketLastUpdated"></span></div>-->
+                <div class="marketFooter">Powered by <a href="https://www.cryptonator.com/">Cryptonator</a></div>
+            </div>
+        </div>
 
 <hr>
 
@@ -282,31 +294,34 @@
     var intervalMarketPolling = setInterval(updateMarkets, 300000); //poll market data every 5 minutes
     var xhrMarketGets = {};
     updateMarkets();
-    function updateMarkets(){
-        var completedFetches = 0;
-        var marketsData = [];
-        for (var i = 0; i < cryptonatorWidget.length; i++){
-            (function(i){
-                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://www.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
-                    marketsData[i] = data;
-                    completedFetches++;
-                    if (completedFetches !== cryptonatorWidget.length) return;
+        function updateMarkets(){
+            var completedFetches = 0;
+            var marketsData = [];
+            for (var i = 0; i < cryptonatorMarkets.length; i++){
+                (function(i){
+                    $.get('https://www.cryptonator.com/api/ticker/' + cryptonatorMarkets[i], function(data){
+                        marketsData[i] = data;
+                        completedFetches++;
+                        if (completedFetches !== cryptonatorMarkets.length) return;
 
-                    var $marketHeader = $('#marketHeader');
-                    $('.marketTicker').remove();
-                    for (var f = marketsData.length - 1; f >= 0 ; f--){
-                        var price = parseFloat(marketsData[f].ticker.price);
+                        var $marketHeader = $('#marketHeader');
+                        $('.marketTicker').remove();
+			var marketText = '<div class="marketTicker">';
+                        for (var f = 0; f < marketsData.length; f++){
+                            var price = parseFloat(marketsData[f].ticker.price);
 
-                        if (price > 1) price = Math.round(price * 100) / 100;
-                        else price = marketsData[f].ticker.price;
+                            if (price > 1) price = Math.round(price * 100) / 100;
+                            else price = marketsData[f].ticker.price;
 
-                        $marketHeader.after('<div class="marketTicker">' + marketsData[f].ticker.base + ': <span>' + price + ' ' + marketsData[f].ticker.target + '</span></div>');
-                    }
-                    $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
-                }, 'json');
-            })(i);
+                            marketText = marketText + '<span>' + price + ' ' + marketsData[f].ticker.target + '</span> ';
+                        }
+			marketText = marketText + '</div>';
+			$marketHeader.after(marketText);
+                        $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
+                    }, 'json');
+                })(i);
+            }
         }
-    }
 
 
 
