@@ -73,6 +73,12 @@
             "time": 600,
             "invalidPercent": 25,
             "checkThreshold": 30
+        },
+        "slushMining": {
+            "enabled": false,
+            "weight": 120,
+            "blockTime": 60,
+            "lastBlockCheckRate": 1
         }
     },
 
@@ -122,6 +128,7 @@
 
     "redis": {
         "host": "127.0.0.1",
-        "port": 6379
+        "port": 6379,
+        "auth": null
     }
 }
