@@ -51,6 +51,12 @@
                 "port": 443,
                 "difficulty": 15000,
                 "desc": "High end hardware"
+            },
+            {
+                "port": 6666,
+                "difficulty": 15000,
+                "desc": "SSL",
+                "type": "SSL"
             }
         ],
         "varDiff": {
